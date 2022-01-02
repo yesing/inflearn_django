@@ -1,12 +1,9 @@
 from rest_framework import serializers
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.serializers import ModelSerializer
 from .models import Post
 
 
-class PostSerializer(ModelViewSet):
+class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
-
-        # m2 = serializers.IntegerField()
-        # pyeong = serializers.IntegerField()
