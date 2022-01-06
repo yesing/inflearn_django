@@ -1,27 +1,26 @@
-#from django.conf.auth import get_user_model
-from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import Post
+from .models import Empty
 
 
-class AuthorSerializer(serializers.ModelSerializer):
+class AddSerializer(serializers.ModelSerializer):
+    val = serializers.SerializerMethodField()
+
     class Meta:
-        model = get_user_model()
-        fields = ['username', 'email']
+        model = Empty
+        fields = ['val']
+
+    @staticmethod
+    def get_val(obj):
+        return obj
 
 
-class PostSerializer(serializers.ModelSerializer):
-    username = serializers.ReadOnlyField(source='author.username')
-    author_email = serializers.ReadOnlyField(source='author.email')
-    author = AuthorSerializer
+class SubSerializer(serializers.ModelSerializer):
+    val = serializers.SerializerMethodField()
+
     class Meta:
-        model = Post
-        fields = [
-            'pk',
-            'username',
-            'author',
-            'author_email',
-            'message',
-            'created_at',
-            'updated_at',
-        ]
+        model = Empty
+        fields = ['val']
+
+    @staticmethod
+    def get_val(obj):
+        return obj
